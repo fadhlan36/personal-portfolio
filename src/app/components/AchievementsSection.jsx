@@ -1,63 +1,71 @@
 "use client";
 import React from "react";
-import dynamic from "next/dynamic";
 
-const AnimatedNumbers = dynamic(
-  () => {
-    return import("react-animated-numbers");
-  },
-  { ssr: false }
-);
-
-const achievementsList = [
+const techFocusList = [
   {
-    metric: "Projects",
-    value: "100",
-    postfix: "+",
+    category: "Core Programming",
+    skills: ["Python", "JavaScript (ES6+)", "Node.js"],
+    description:
+      "Building robust backend logic, automated scripts, and efficient data workflows.",
+    gradient: "from-blue-500 to-indigo-600",
   },
   {
-    prefix: "~",
-    metric: "Users",
-    value: "100,000",
+    category: "UI/UX Design",
+    skills: ["Figma", "Wireframing", "User-Centric Design"],
+    description:
+      "Crafting intuitive user interfaces, digital mockups, and seamless user experiences with a modern aesthetic.",
+    gradient: "from-purple-500 to-pink-600",
   },
   {
-    metric: "Awards",
-    value: "7",
-  },
-  {
-    metric: "Years",
-    value: "5",
+    category: "Web Development",
+    skills: ["React.js", "Next.js", "Tailwind CSS"],
+    description:
+      "Crafting modern, responsive, and high-performance interactive web applications.",
+    gradient: "from-cyan-500 to-teal-600",
   },
 ];
 
 const AchievementsSection = () => {
   return (
     <div className="py-8 px-4 xl:gap-16 sm:py-16 xl:px-16">
-      <div className="sm:border-[#33353F] sm:border rounded-md py-8 px-16 flex flex-col sm:flex-row items-center justify-between">
-        {achievementsList.map((achievement, index) => {
+      <div className="mb-8">
+        <h2 className="text-white text-2xl font-bold mb-2">
+          Technical Focus & Expertise
+        </h2>
+        <p className="text-[#ADB7BE] text-base max-w-xl">
+          A glance at the core technologies and domains I specialize in to bring
+          complex ideas to life.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {techFocusList.map((item, index) => {
           return (
             <div
               key={index}
-              className="flex flex-col items-center justify-center mx-4 my-4 sm:my-0"
+              className="bg-[#181818] border border-[#33353F] hover:border-[#9c33ff] transition-all duration-300 rounded-xl p-6 flex flex-col justify-between group"
             >
-              <h2 className="text-white text-4xl font-bold flex flex-row">
-                {achievement.prefix}
-                <AnimatedNumbers
-                  includeComma
-                  animateToNumber={parseInt(achievement.value)}
-                  locale="en-US"
-                  className="text-white text-4xl font-bold"
-                  configs={(_, index) => {
-                    return {
-                      mass: 1,
-                      friction: 100,
-                      tensions: 140 * (index + 1),
-                    };
-                  }}
-                />
-                {achievement.postfix}
-              </h2>
-              <p className="text-[#ADB7BE] text-base">{achievement.metric}</p>
+              <div>
+                <div
+                  className={`w-fit text-xs font-semibold px-3 py-1 rounded-full bg-gradient-to-r ${item.gradient} text-white mb-4 shadow-sm`}
+                >
+                  {item.category}
+                </div>
+                <p className="text-[#ADB7BE] text-sm leading-relaxed mb-6 group-hover:text-white transition-colors duration-300">
+                  {item.description}
+                </p>
+              </div>
+
+              <div className="flex flex-wrap gap-2 mt-auto">
+                {item.skills.map((skill, skillIndex) => (
+                  <span
+                    key={skillIndex}
+                    className="text-xs bg-[#242426] text-slate-300 px-2.5 py-1 rounded-md border border-[#33353F]"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
             </div>
           );
         })}
